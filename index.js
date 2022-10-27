@@ -1,8 +1,8 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-const generateHTML = ({ name, location, github, linkedin }) =>
-  `<!DOCTYPE html>
+const generateHTML = ({ name, location, github, linkedin, hobby, food }) =>
+`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -11,7 +11,7 @@ const generateHTML = ({ name, location, github, linkedin }) =>
   <title>Document</title>
 </head>
 <body>
-  <div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-4">Hi! My name is ${name}</h1>
     <p class="lead">I am from ${location}.</p>
@@ -19,45 +19,49 @@ const generateHTML = ({ name, location, github, linkedin }) =>
     <ul class="list-group">
       <li class="list-group-item">My GitHub username is ${github}</li>
       <li class="list-group-item">LinkedIn: ${linkedin}</li>
+      <li class="list-group-item">Favorite Hobby: ${hobby}</li>
+      <li class="list-group-item">Favorite Food: ${food}</li>
     </ul>
   </div>
 </div>
 </body>
 </html>`;
 
+const questions = [
+  {
+    type: 'input',
+    name: 'name',
+    message: 'What is your name?',
+  },
+  {
+    type: 'input',
+    name: 'location',
+    message: 'Where are you from?',
+  },
+  {
+    type: 'input',
+    name: 'hobby',
+    message: 'What is your favorite hobby?',
+  },
+  {
+    type: 'input',
+    name: 'food',
+    message: 'What is your favorite food?',
+  },
+  {
+    type: 'input',
+    name: 'github',
+    message: 'Enter your GitHub Username',
+  },
+  {
+    type: 'input',
+    name: 'linkedin',
+    message: 'Enter your LinkedIn URL.',
+  },
+]
+
 inquirer
-  .prompt([
-    {
-      type: 'input',
-      name: 'name',
-      message: 'What is your name?',
-    },
-    {
-      type: 'input',
-      name: 'location',
-      message: 'Where are you from?',
-    },
-    {
-      type: 'input',
-      name: 'hobby',
-      message: 'What is your favorite hobby?',
-    },
-    {
-      type: 'input',
-      name: 'food',
-      message: 'What is your favorite food?',
-    },
-    {
-      type: 'input',
-      name: 'github',
-      message: 'Enter your GitHub Username',
-    },
-    {
-      type: 'input',
-      name: 'linkedin',
-      message: 'Enter your LinkedIn URL.',
-    },
-  ])
+  .prompt(questions)
   .then((answers) => {
     const htmlPageContent = generateHTML(answers);
 
